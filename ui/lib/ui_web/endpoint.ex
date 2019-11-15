@@ -40,7 +40,7 @@ defmodule UiWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_ui_key",
-    signing_salt: "yRTzb6qj"
+    signing_salt: "Rym4CjVR"
 
   plug UiWeb.Router
 end

@@ -1,10 +1,5 @@
 use Mix.Config
 
-# Configure your database
-config :ui, Ui.Repo,
-  adapter: Sqlite.Ecto2,
-  database: "ui_dev.sqlite"
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
