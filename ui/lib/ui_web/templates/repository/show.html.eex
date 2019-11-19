@@ -1,0 +1,115 @@
+<h1>Show Repository</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @repository.name %>
+  </li>
+
+  <li>
+    <strong>Street address:</strong>
+    <%= @repository.street_address %>
+  </li>
+
+  <li>
+    <strong>City:</strong>
+    <%= @repository.city %>
+  </li>
+
+  <li>
+    <strong>State:</strong>
+    <%= @repository.state %>
+  </li>
+
+  <li>
+    <strong>Postal code:</strong>
+    <%= @repository.postal_code %>
+  </li>
+
+  <li>
+    <strong>Country:</strong>
+    <%= @repository.country %>
+  </li>
+
+  <li>
+    <strong>Latitude:</strong>
+    <%= @repository.latitude %>
+  </li>
+
+  <li>
+    <strong>Longitude:</strong>
+    <%= @repository.longitude %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.repository_path(@conn, :edit, @repository) %></span>
+<span><%= link "Back", to: Routes.repository_path(@conn, :index) %></span>
+
+<br />
+<hr>
+<br />
+<h3>Contacts</h3>
+<ul>
+<%= for contact <- @repository.contacts do %>
+  <li class="contact"><%= "#{contact.first_name} #{contact.last_name}" %></li>
+<% end %>
+</ul>
+
+<br />
+<hr>
+<br />
+<h3>Add a contact</h3>
+<%= form_for @contact_changeset, Routes.repository_contact_path(@conn, :create, @repository), [class: "w-full max-w-lg"], fn f -> %>
+  <%= label f, :first_name, class: "text-gray-700"  %>
+  <%= text_input f, :first_name, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :first_name %>
+
+  <%= label f, :last_name, class: "text-gray-700"  %>
+  <%= text_input f, :last_name, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :last_name %>
+
+  <%= label f, :title, class: "text-gray-700"  %>
+  <%= text_input f, :title, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :title %>
+
+  <%= label f, :email_address, class: "text-gray-700"  %>
+  <%= text_input f, :email_address, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :email_address %>
+
+  <%= label f, :phone_number, class: "text-gray-700"  %>
+  <%= text_input f, :phone_number, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :phone_number %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+<br />
+<hr>
+<br />
+<h3>Volumes</h3>
+<ul>
+<%= for volume <- @repository.volumes do %>
+  <li class="volume"><%= "#{volume.name} vol. #{volume.volume_number}" %></li>
+<% end %>
+</ul>
+
+<br />
+<hr>
+<br />
+<h3>Add a Volume</h3>
+<%= form_for @volume_changeset, Routes.repository_volume_path(@conn, :create, @repository), [class: "w-full max-w-lg"], fn f -> %>
+  <%= label f, :name, class: "text-gray-700"  %>
+  <%= text_input f, :name, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :volume_number, class: "text-gray-700"  %>
+  <%= text_input f, :volume_number, class: "form-input mt-4 block w-full"  %>
+  <%= error_tag f, :volume_number %>
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
