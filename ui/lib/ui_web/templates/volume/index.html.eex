@@ -1,0 +1,28 @@
+<h1>Listing Volumes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Volume Number</th>
+      <th>Repository Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for volume <- @volumes do %>
+    <tr>
+      <td><%= volume.name %></td>
+      <td><%= volume.volume_number %></td>
+      <td><%= volume.repository.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.volume_path(@conn, :show, volume) %></span>
+        <span><%= link "Edit", to: Routes.volume_path(@conn, :edit, volume) %></span>
+        <span><%= link "Delete", to: Routes.volume_path(@conn, :delete, volume), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

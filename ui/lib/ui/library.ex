@@ -6,7 +6,7 @@ defmodule Ui.Library do
   import Ecto.Query, warn: false
   alias Ui.Repo
 
-  alias Ui.Library.Repository
+  alias Ui.Library.{Repository, Volume, Contact, Image}
 
   @doc """
   Returns the list of repositories.
@@ -216,7 +216,9 @@ defmodule Ui.Library do
 
   """
   def list_volumes do
-    Repo.all(Volume)
+    Volume
+    |> Repo.all
+    |> Repo.preload(:repository)
   end
 
   @doc """
@@ -233,7 +235,11 @@ defmodule Ui.Library do
       ** (Ecto.NoResultsError)
 
   """
-  def get_volume!(id), do: Repo.get!(Volume, id)
+  def get_volume!(id) do
+
+    Volume
+    |> Repo.get!(id)
+  end
 
   @doc """
   Creates a volume.

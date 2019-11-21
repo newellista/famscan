@@ -1,0 +1,17 @@
+<h1>Show Volume</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @volume.name %>
+  </li>
+
+  <li>
+    <strong>Volume Number:</strong>
+    <%= @volume.volume_number %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: Routes.volume_path(@conn, :edit, @volume) %></span>
+<span><%= link "Back", to: Routes.volume_path(@conn, :index) %></span>

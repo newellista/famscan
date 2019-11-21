@@ -21,8 +21,11 @@ defmodule UiWeb.Router do
       resources "/volumes", VolumeController, only: [:create]
     end
 
-    resources "/volumes", VolumeController, only: [:index, :show] do
-      resources "/images", ImageController, only: [:create, :show, :index]
+    resources "/volumes", VolumeController, only: [:index, :delete, :edit, :show] do
+      resources "/images", ImageController, only: [:show, :index]
+      get "/images/capture/preview", CaptureController, :preview, as: :preview
+      post "/images/capture/begin", CaptureController, :start_capture, as: :begin
+      post "/images/capture/end", CaptureController, :end_capture, as: :end
     end
   end
 end
