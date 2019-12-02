@@ -17,7 +17,7 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 # involved with firmware updates.
 
 config :shoehorn,
-  init: [:nerves_runtime, :nerves_init_gadget],
+  init: [:nerves_runtime, :nerves_pack],
   app: Mix.Project.config()[:app]
 
 # Use Ringlogger as the logger backend and remove :console.
@@ -25,6 +25,8 @@ config :shoehorn,
 # configuring ring_logger.
 
 config :logger, backends: [RingLogger]
+
+config :firmware, :websocket_url, "ws://localhost:4000/camera_socket/websocket"
 
 if Mix.target() != :host do
   import_config "target.exs"

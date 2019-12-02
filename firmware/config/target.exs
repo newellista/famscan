@@ -56,7 +56,7 @@ config :vintage_net,
 config :nerves_init_gadget,
   ifname: "usb0",
   address_method: :dhcpd,
-  mdns_domain: "nerves.local",
+  mdns_domain: "famscan.local",
   node_name: node_name,
   node_host: :mdns_domain
 

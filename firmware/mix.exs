@@ -43,15 +43,16 @@ defmodule Firmware.MixProject do
       {:shoehorn, "~> 0.6"},
       {:ring_logger, "~> 0.6"},
       {:toolshed, "~> 0.2"},
-      {:cowboy, "~> 1.0.0"},
+      {:cowboy, "~> 2.5"},
       {:plug, "~> 1.0"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:ex_image_info, "~> 0.2.4"},
       {:picam, git: "https://github.com/newellista/picam.git", nerves: [compile: true]},
       {:httpoison, "~> 0.8"},
       {:jason, "~> 1.1"},
       {:poison, "~> 3.0"},
       {:hackney, "~> 1.9"},
+      {:websockex, "~> 0.4.2"},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.6", targets: @all_targets},
@@ -59,6 +60,7 @@ defmodule Firmware.MixProject do
       {:vintage_net, "~> 0.3", targets: @all_targets},
       {:busybox, "~> 0.1", targets: @all_targets},
       {:nerves_firmware_ssh, "~> 0.2", targets: @all_targets},
+      {:nerves_pack, "~> 0.1.0", targets: @all_targets},
       {:nerves_time, "~> 0.2", targets: @all_targets},
       {:mdns_lite, "~> 0.4", targets: @all_targets},
 

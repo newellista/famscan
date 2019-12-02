@@ -3,6 +3,7 @@ defmodule UiWeb.UserSocket do
 
   ## Channels
   # channel "room:*", UiWeb.RoomChannel
+  channel "camera:*", UiWeb.CameraControllerChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

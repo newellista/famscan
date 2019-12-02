@@ -1,8 +1,8 @@
 defmodule UiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ui
 
-  socket "/socket", UiWeb.UserSocket,
-    websocket: true,
+  socket "/camera_socket", UiWeb.UserSocket,
+    websocket: [timeout: :infinity],
     longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.

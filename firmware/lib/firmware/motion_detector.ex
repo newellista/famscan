@@ -8,9 +8,12 @@ defmodule Firmware.MotionDetector do
     GenServer.start_link(__MODULE__, opts, name: MotionDetector)
   end
 
-  @impl true
   def reset() do
     GenServer.cast(MotionDetector, :reset)
+  end
+
+  def start_streaming() do
+    send(Firmware.MotionDetector, :allow_streaming)
   end
 
   @impl true
@@ -54,19 +57,6 @@ defmodule Firmware.MotionDetector do
   end
 
   @impl true
-  def handle_cast(:reset, state = %{port: port}) do
-    Logger.info("Resetting the Picam port process and stopping our stream")
-
-    {:os_pid, port_pid} = Port.info(port, :os_pid)
-    System.cmd("kill", ["-KILL", "#{port_pid}"])
-    :timer.sleep(5000)
-    pid = Process.whereis(Picam.Camera)
-
-    Process.send(pid, :reconnect_port, [])
-    {:noreply, %{state | stream_allowed: false}}
-  end
-
-  @impl true
   def handle_info(
     :restart_picam,
     state = %{port: port}
@@ -105,6 +95,19 @@ defmodule Firmware.MotionDetector do
   @impl true
   def handle_info(_msg, state) do
     {:noreply, state}
+  end
+
+  @impl true
+  def handle_cast(:reset, state = %{port: port}) do
+    Logger.info("Resetting the Picam port process and stopping our stream")
+
+    {:os_pid, port_pid} = Port.info(port, :os_pid)
+    System.cmd("kill", ["-KILL", "#{port_pid}"])
+    :timer.sleep(5000)
+    pid = Process.whereis(Picam.Camera)
+
+    Process.send(pid, :reconnect_port, [])
+    {:noreply, %{state | stream_allowed: false}}
   end
 
   @impl true

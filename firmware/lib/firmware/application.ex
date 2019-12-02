@@ -12,7 +12,7 @@ defmodule Firmware.Application do
     Logger.info "Port: #{port}"
     children =
       [
-        Plug.Adapters.Cowboy.child_spec(:http, Firmware.Router, [], port: port)
+        # Plug.Adapters.Cowboy.child_spec(:http, Firmware.Router, [], port: port)
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)
@@ -31,6 +31,7 @@ defmodule Firmware.Application do
     [
       {Picam.Camera, []},
       {Firmware.MotionDetector, []},
+      {Firmware.UiConnector, []},
       # Children for all targets except host
       # Starts a worker by calling: Firmware.Worker.start_link(arg)
       # {Firmware.Worker, arg},
