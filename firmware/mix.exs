@@ -56,8 +56,8 @@ defmodule Firmware.MixProject do
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.6", targets: @all_targets},
-      {:nerves_init_gadget, "~> 0.4", targets: @all_targets},
       {:vintage_net, "~> 0.3", targets: @all_targets},
+      {:vintage_net_wizard, "~> 0.1", targets: @all_targets},
       {:busybox, "~> 0.1", targets: @all_targets},
       {:nerves_firmware_ssh, "~> 0.2", targets: @all_targets},
       {:nerves_pack, "~> 0.1.0", targets: @all_targets},

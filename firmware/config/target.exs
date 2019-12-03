@@ -23,41 +23,22 @@ if keys == [],
 config :nerves_firmware_ssh,
   authorized_keys: Enum.map(keys, &File.read!/1)
 
-# Configure nerves_init_gadget.
-# See https://hexdocs.pm/nerves_init_gadget/readme.html for more information.
-
-# Setting the node_name will enable Erlang Distribution.
-# Only enable this for prod if you understand the risks.
 node_name = if Mix.env() != :prod, do: "firmware"
+
+
+config :mdns_lite,
+  host: [:hostname, "famscan"]
 
 config :vintage_net,
   regulatory_domain: "US",
   config: [
     {"eth0", %{type: VintageNet.Technology.Ethernet, ipv4: %{method: :dhcp}}},
-    {"wlan0", %{type: VintageNet.Technology.WiFi}}
+    {"usb0", %{type: VintageNet.Technology.Gadget, gadget: %{hostname: "famscan"}}}
   ]
 
-config :vintage_net,
-  config: [
-    {"wlan0",
-     %{
-       type: VintageNet.Technology.WiFi,
-       wifi: %{
-         key_mgmt: :wpa_psk,
-         psk: "l0ck3d0ut",
-         ssid: "newells"
-       },
-       ipv4: %{
-         method: :dhcp
-       }
-     }}
-  ]
 
-config :nerves_init_gadget,
-  ifname: "usb0",
-  address_method: :dhcpd,
-  mdns_domain: "famscan.local",
-  node_name: node_name,
-  node_host: :mdns_domain
+config :vintage_net_wizard,
+  dns_name: "famscan.info"
+
 
 config :firmware, port: 4005

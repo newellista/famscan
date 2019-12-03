@@ -10,6 +10,9 @@ defmodule Firmware.Application do
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]
     port = Application.get_env(:firmware, :port)
     Logger.info "Port: #{port}"
+
+    maybe_enable_wizard()
+
     children =
       [
         # Plug.Adapters.Cowboy.child_spec(:http, Firmware.Router, [], port: port)
@@ -36,6 +39,17 @@ defmodule Firmware.Application do
       # Starts a worker by calling: Firmware.Worker.start_link(arg)
       # {Firmware.Worker, arg},
     ]
+  end
+
+  def maybe_enable_wizard() do
+    configured = VintageNet.configured_interfaces()
+    all = VintageNet.all_interfaces()
+
+    with true <- "wlan0" in all,
+         true <- "wlan0" not in configured
+    do
+      VintageNetWizard.run_wizard()
+    end
   end
 
   def target() do
